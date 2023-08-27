@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [        
+        'is_admin' => false,
+    ];
 }
