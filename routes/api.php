@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,4 +26,12 @@ Route::post('/logout',[AuthController::class,'logout'])->middleware('auth:sanctu
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories', 'index');
+});
+
+Route::controller(ProductController::class)->middleware('auth:sanctum')->group(function () {
+    Route::get('/products', 'index');
+    Route::get('/products/{product}', 'show');
+    Route::post('/products', 'store');
+    Route::put('/products/{product}', 'update');
+    Route::delete('/products/{product}', 'destroy');
 });
