@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -35,3 +36,6 @@ Route::controller(ProductController::class)->middleware('auth:sanctum')->group(f
     Route::put('/products/{product}', 'update');
     Route::delete('/products/{product}', 'destroy');
 });
+
+
+
