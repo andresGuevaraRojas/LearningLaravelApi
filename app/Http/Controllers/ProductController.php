@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -12,9 +13,19 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ProductResource::collection(Product::paginate());
+        $perPage = 10;
+
+        if($request->has('per_page')){
+            $perPage = $request->per_page;
+        }
+
+        if($request->has('category')){
+            return ProductResource::collection(Product::where('category_id',$request->category)->paginate($perPage));    
+        }        
+
+        return ProductResource::collection(Product::paginate($perPage));
     }
 
     /**
